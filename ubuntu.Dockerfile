@@ -1,7 +1,7 @@
 FROM ubuntu:focal
 
 RUN apt update && \
-    apt install -y --no-install-recommends openssh-server sudo augeas-tools python3 && \
+    apt install -y --no-install-recommends openssh-server sudo augeas-tools rsync python3 && \
     rm -rf /var/lib/apt/lists/*
 
 RUN adduser --gecos '' --disabled-password ubuntu && \

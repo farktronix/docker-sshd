@@ -1,6 +1,9 @@
 # Ansible Dummy
 
-Minimal Linux Docker images for Alpine and Ubuntu with `sshd` exposed and `rsync` installed. These make a great target for testing your Ansible scripts against a machine in a pristine state.
+Minimal Linux Docker images for Alpine and Ubuntu with `sshd` exposed and `rsync` installed. These make a great target for testing your Ansible scripts against a machine in a pristine state. This is based on [https://github.com/panubo/docker-sshd](panubo/docker-sshd) with a few modifications made:
+ - An 'alpine' or 'ubuntu' user has been added (password is the same as the username)
+ - The user has been given sudo access
+ - Python and other packages necessary for Ansible have been installed
 
 ## Environment Options
 
