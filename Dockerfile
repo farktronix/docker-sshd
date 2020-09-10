@@ -18,7 +18,7 @@ RUN deluser $(getent passwd 33 | cut -d: -f1) && \
 
 EXPOSE 22
 
-COPY entry.sh /entry.sh
+COPY alpine/entry.sh /entry.sh
 
 ENTRYPOINT ["/entry.sh"]
 
