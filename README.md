@@ -1,6 +1,6 @@
-# SSHD
+# Ansible Dummy
 
-Minimal Alpine Linux Docker image with `sshd` exposed and `rsync` installed.
+Minimal Linux Docker images for Alpine and Ubuntu with `sshd` exposed and `rsync` installed. These make a great target for testing your Ansible scripts against a machine in a pristine state.
 
 ## Environment Options
 
@@ -109,7 +109,7 @@ docker run -ti -p 2222:22 \
   -e SSH_USERS=user:1000:1000 \
   -e SSH_ENABLE_PASSWORD_AUTH=true \
   -v $(pwd)/entrypoint.d/:/etc/entrypoint.d/ \
-  docker.io/panubo/sshd:1.3.0
+  farktronix/ansible_dummy:latest-alpine
 ```
 
 ## Usage Example
@@ -126,7 +126,7 @@ docker run -ti -p 2222:22 \
   -v $(pwd)/keys/:/etc/ssh/keys \
   -v $(pwd)/data/:/data/ \
   -e SSH_ENABLE_ROOT=true \
-  docker.io/panubo/sshd:1.3.0
+  farktronix/ansible_dummy:latest-alpine
 ```
 
 Create a `www` user with gid/uid 48. You can access with `ssh www@localhost -p 2222` using your private key.
@@ -137,7 +137,7 @@ docker run -ti -p 2222:22 \
   -v $(pwd)/keys/:/etc/ssh/keys \
   -v $(pwd)/data/:/data/ \
   -e SSH_USERS="www:48:48" \
-  docker.io/panubo/sshd:1.3.0
+  farktronix/ansible_dummy:latest-alpine
 ```
 
 ## Releases
