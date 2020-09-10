@@ -1,16 +1,16 @@
-FROM alpine:3.12
+FROM ubuntu:focal
 
-RUN apk update && \
-    apk add bash git openssh rsync augeas shadow rssh sudo openrc && \
-    deluser $(getent passwd 33 | cut -d: -f1) && \
-    delgroup $(getent group 33 | cut -d: -f1) 2>/dev/null || true && \
-    adduser -D -g '' alpine && \
-    echo 'alpine:alpine' | chpasswd && \
-    mkdir -p ~alpine/.ssh ~root/.ssh /etc/authorized_keys && chmod 700 ~root/.ssh/ ~alpine/.ssh  && chown alpine:alpine ~alpine/.ssh && \
+RUN apt update && \
+    apt install -y --no-install-recommends openssh-server sudo augeas-tools python3 && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN adduser --gecos '' --disabled-password ubuntu && \
+    echo 'ubuntu:ubuntu' | chpasswd && \
+    adduser ubuntu sudo && \
+    mkdir -p ~ubuntu/.ssh ~root/.ssh /etc/authorized_keys && chmod 700 ~root/.ssh/ ~ubuntu/.ssh  && chown ubuntu:ubuntu ~ubuntu/.ssh && \
     augtool 'set /files/etc/ssh/sshd_config/AuthorizedKeysFile ".ssh/authorized_keys /etc/authorized_keys/%u"' && \
-    echo -e "Port 22\n" >> /etc/ssh/sshd_config && \
-    cp -a /etc/ssh /etc/ssh.cache && \
-    rm -rf /var/cache/apk/*
+    augtool 'set /files/etc/ssh/sshd_config/Port "22"' && \
+    cp -a /etc/ssh /etc/ssh.cache
 
 EXPOSE 22
 
